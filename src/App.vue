@@ -1,9 +1,9 @@
 <template>
 <div class="todo-container">
     <div class="todo-wrap">
-      <todo-header/>
-      <todo-list :todos="todos"/>
-      <todo-footer/>
+      <todo-header :addTodo="addTodo"/>
+      <todo-list :todos="todos" :deleteTodo="deleteTodo"/>
+      <todo-footer :todos="todos" :deleteCompleteTodos="deleteCompleteTodos" :selectAllTodos="selectAllTodos"/>
     </div>
   </div>
 </template>
@@ -28,6 +28,17 @@ export default {
     addTodo (todo) {
       /** unshift 就是给一个数组添加一个对象进去 */
       this.todos.unshift(todo)
+    },
+    deleteTodo (index) {
+      this.todos.splice(index, 1)
+    },
+    /** 删除所有选中的 */
+    deleteCompleteTodos () {
+      this.todos = this.todos.filter(todo => !todo.complete)
+    },
+    /** 实现全选或者全不选 */
+    selectAllTodos (isCheck) {
+      this.todos.forEach(todo => (todo.complete = isCheck))
     }
   },
 
