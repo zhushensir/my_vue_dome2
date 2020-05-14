@@ -16,11 +16,8 @@ import TodoFooter from './components/TodoFooter.vue'
 export default {
   data () {
     return {
-      todos: [
-        {title: '吃饭', complete: false},
-        {title: '睡觉', complete: true},
-        {title: '打豆豆', complete: false}
-      ]
+      /** 从Localstorage读取todos，深度监视 */
+      todos: JSON.parse(window.localStorage.getItem('todos_key') || '[]')
     }
   },
 
@@ -39,6 +36,16 @@ export default {
     /** 实现全选或者全不选 */
     selectAllTodos (isCheck) {
       this.todos.forEach(todo => (todo.complete = isCheck))
+    }
+  },
+  /** 深度监视 */
+  watch: {
+    todos: {
+      deep: true,
+      handler: function (Value) {
+        /** 将todos最新的值保存到localstorage里面,需要转成JSON */
+        window.localStorage.setItem('todos_key', JSON.stringify(Value))
+      }
     }
   },
 

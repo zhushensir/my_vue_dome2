@@ -25,6 +25,9 @@ export default {
     },
     isAllCheck: {
       get () {
+        if (this.completeSize === 0) {
+          return false
+        }
         return this.completeSize === this.todos.length
       },
 
