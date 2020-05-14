@@ -23,6 +23,14 @@ export default {
       ]
     }
   },
+
+  methods: {
+    addTodo (todo) {
+      /** unshift 就是给一个数组添加一个对象进去 */
+      this.todos.unshift(todo)
+    }
+  },
+
   components: {
     TodoHeader,
     TodoList,
